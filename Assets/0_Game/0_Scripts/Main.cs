@@ -39,12 +39,14 @@ public class Main : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _debugLabel;
 
+    private UniTask _pauseTask;
+
     private void Start()
     {
         UnityEngine.Random.InitState(42);
         DOTween.Init().SetCapacity(100, 50);
 
-        Game.IsPause = true;
+        GameSettings.IsPause = true;
         InitializeCanvas();
         InitializePlayer();
         _gameStartButton.onClick.AddListener(() => _ = StartGame());
@@ -53,10 +55,10 @@ public class Main : MonoBehaviour
 
     private async UniTask StartGame()
     {
-        Game.IsPause = true;
+        GameSettings.IsPause = true;
         await _gameStartMenu.FadeOut();
         _gameStartMenu.gameObject.SetActive(false);
-        Game.IsPause = false;
+        GameSettings.IsPause = false;
     }
 
     private void InitializePlayer()
@@ -66,8 +68,8 @@ public class Main : MonoBehaviour
 
     private void InitializeCanvas()
     {
-        _soundSlider.SetValueWithoutNotify(Game.SoundValue);
-        _musicSlider.SetValueWithoutNotify(Game.MusicValue);
+        _soundSlider.SetValueWithoutNotify(GameSettings.SoundValue);
+        _musicSlider.SetValueWithoutNotify(GameSettings.MusicValue);
 
         _soundSlider.OnValueChanged += SetSound;
         _musicSlider.OnValueChanged += SetMusic;
@@ -78,7 +80,7 @@ public class Main : MonoBehaviour
     private void Update()
     {
         UpdatePause();
-        if (Game.IsPause)
+        if (GameSettings.IsPause)
         {
             return;
         }
@@ -86,13 +88,11 @@ public class Main : MonoBehaviour
         UpdateInput();
     }
 
-    private UniTask _pauseTask;
-
     private void UpdatePause()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && _pauseTask.Status is UniTaskStatus.Succeeded or UniTaskStatus.Pending)
         {
-            if (Game.IsPause)
+            if (GameSettings.IsPause)
             {
                 _pauseTask = UnPause();
             }
@@ -117,7 +117,7 @@ public class Main : MonoBehaviour
 
     private async UniTask Pause()
     {
-        Game.IsPause = true;
+        GameSettings.IsPause = true;
         _pauseMenu.gameObject.SetActive(true);
         _pauseMenu.alpha = 0f;
         await _pauseMenu.FadeIn();
@@ -127,16 +127,16 @@ public class Main : MonoBehaviour
     {
         await _pauseMenu.FadeOut();
         _pauseMenu.gameObject.SetActive(false);
-        Game.IsPause = false;
+        GameSettings.IsPause = false;
     }
 
     private void SetMusic(float obj)
     {
-        Game.MusicValue = obj;
+        GameSettings.MusicValue = obj;
     }
 
     private void SetSound(float obj)
     {
-        Game.SoundValue = obj;
+        GameSettings.SoundValue = obj;
     }
 }

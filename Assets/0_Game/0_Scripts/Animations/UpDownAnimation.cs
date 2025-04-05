@@ -19,6 +19,11 @@ public class UpDownAnimation : MonoBehaviour
     [HideInInspector]
     private bool _previewIsAdded;
 
+    private void OnDestroy()
+    {
+        transform.DOKill();
+    }
+
     private void Start()
     {
         float startPosY = transform.localPosition.y;
