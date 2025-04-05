@@ -38,9 +38,9 @@ public class ServiceCards : MonoBehaviour
                     LadderStep ladderStep = Root.Instance.ServiceLadder.GetNextStep();
                     await Root.Instance.Player.Move(ladderStep);
                     l.IncrementStep();
-                    await TryInteractByStep(ladderStep);
+                    await TryInteractByCurrentStep(ladderStep);
                     var n = Root.Instance.ServiceLadder.GetNextStep();
-                    await TryInteractByStep(n);
+                    await TryInteractByNextStep(n);
                 }
                 else
                 {
@@ -66,13 +66,13 @@ public class ServiceCards : MonoBehaviour
             case CardTypes.Struggle:
                 break;
             case CardTypes.Talk:
-                Root.Instance.ServiceFight.UseTalk();
+                await Root.Instance.ServiceFight.UseTalk();
                 break;
             case CardTypes.Listen:
-                Root.Instance.ServiceFight.UseListen();
+                await Root.Instance.ServiceFight.UseListen();
                 break;
             case CardTypes.Flee:
-                Root.Instance.ServiceFight.UseFlee();
+                await Root.Instance.ServiceFight.UseFlee();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -81,7 +81,7 @@ public class ServiceCards : MonoBehaviour
         IsUsingCard = false;
     }
 
-    private async UniTask TryInteractByStep(LadderStep step)
+    private async UniTask TryInteractByNextStep(LadderStep step)
     {
         switch (step.StepType)
         {
@@ -95,7 +95,31 @@ public class ServiceCards : MonoBehaviour
             case LadderStep.StepTypes.EachFive:
                 break;
             case LadderStep.StepTypes.BossFight:
-                await Root.Instance.ServiceFight.ForceStartFight(step);
+
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private async UniTask TryInteractByCurrentStep(LadderStep step)
+    {
+        switch (step.StepType)
+        {
+            case LadderStep.StepTypes.Basic:
+                break;
+            case LadderStep.StepTypes.GameStart:
+                break;
+            case LadderStep.StepTypes.NPC:
+                break;
+            case LadderStep.StepTypes.EachFive:
+                break;
+            case LadderStep.StepTypes.BossFight:
+                if (step.HaveEnemies())
+                {
+                    await Root.Instance.ServiceFight.ForceStartFight(step);
+                }
+
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

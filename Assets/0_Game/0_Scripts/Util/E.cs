@@ -12,7 +12,6 @@ using Random = UnityEngine.Random;
 
 public static class EGlobal
 {
-
     public static Dictionary<string, List<int>> ParseCsv(this string str)
     {
         // Split the input string by new lines to get the rows
@@ -299,14 +298,9 @@ public static class E
         return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
     }
 
-    public static async UniTask FadeIn(this CanvasGroup target, float duration = 0.5f)
+    public static async UniTask Fade(this CanvasGroup target, float value, float duration = 0.5f)
     {
-        await target.DOFade(1f, duration).ToUniTask();
-    }
-
-    public static async UniTask FadeOut(this CanvasGroup target, float duration = 0.5f)
-    {
-        await target.DOFade(0f, duration).ToUniTask();
+        await target.DOFade(value, duration).ToUniTask();
     }
 
     public static async UniTask ToUniTask(this Tween t)

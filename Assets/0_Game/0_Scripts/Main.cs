@@ -56,7 +56,7 @@ public class Main : MonoBehaviour
     private async UniTask StartGame()
     {
         GameSettings.IsPause = true;
-        await _gameStartMenu.FadeOut();
+        await _gameStartMenu.Fade(1f);
         _gameStartMenu.gameObject.SetActive(false);
         GameSettings.IsPause = false;
     }
@@ -79,13 +79,13 @@ public class Main : MonoBehaviour
 
     private void Update()
     {
-        UpdatePause();
-        if (GameSettings.IsPause)
-        {
-            return;
-        }
-
-        UpdateInput();
+        // UpdatePause();
+        // if (GameSettings.IsPause)
+        // {
+        //     return;
+        // }
+        //
+        // UpdateInput();
     }
 
     private void UpdatePause()
@@ -120,12 +120,12 @@ public class Main : MonoBehaviour
         GameSettings.IsPause = true;
         _pauseMenu.gameObject.SetActive(true);
         _pauseMenu.alpha = 0f;
-        await _pauseMenu.FadeIn();
+        await _pauseMenu.Fade(1f);
     }
 
     private async UniTask UnPause()
     {
-        await _pauseMenu.FadeOut();
+        await _pauseMenu.Fade(0f);
         _pauseMenu.gameObject.SetActive(false);
         GameSettings.IsPause = false;
     }

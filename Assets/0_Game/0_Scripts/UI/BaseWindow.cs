@@ -5,7 +5,8 @@ using UnityEngine;
 public class BaseWindow : MonoBehaviour
 {
     protected CanvasGroup CanvasGroup;
-    public virtual void Start()
+
+    public virtual void Awake()
     {
         CanvasGroup = GetComponent<CanvasGroup>();
         if (CanvasGroup == null)
@@ -16,13 +17,16 @@ public class BaseWindow : MonoBehaviour
 
     public void Show()
     {
+        gameObject.SetActive(true);
         CanvasGroup.alpha = 1f;
         CanvasGroup.interactable = true;
+        CanvasGroup.blocksRaycasts = true;
     }
 
     public void Hide()
     {
         CanvasGroup.alpha = 0f;
         CanvasGroup.interactable = false;
+        CanvasGroup.blocksRaycasts = false;
     }
 }

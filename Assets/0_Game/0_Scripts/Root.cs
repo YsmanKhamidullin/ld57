@@ -23,6 +23,12 @@ public class Root : MonoBehaviour
     [field: SerializeField]
     public Player Player { get; private set; }
 
+    [field: SerializeField]
+    public PlayerHeart PlayerHeart { get; private set; }
+
+    [field: SerializeField]
+    public Mind Mind { get; private set; }
+
     public static Root Instance;
 
     private void Awake()

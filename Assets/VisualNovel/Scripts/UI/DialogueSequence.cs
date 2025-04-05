@@ -9,7 +9,7 @@ namespace Game.Core.VisualNovel
 {
     public class DialogueSequence : MonoBehaviour
     {
-        [IntSlider(0,15)]
+        [IntSlider(0, 15)]
         [SerializeField]
         private int _currentIndex;
 
@@ -46,7 +46,11 @@ namespace Game.Core.VisualNovel
             var dialogue = _dialogues[_currentIndex];
             _dialogueSequenceCharacters.SetUp(dialogue);
             var dialogueText = await dialogue.Show();
-            await ServiceInput.AwaitClick();
+            if (dialogue is not OnBoardingDialogue)
+            {
+                await ServiceInput.AwaitClick();
+            }
+
             dialogue.Hide();
             _currentIndex += 1;
             await Next();

@@ -17,19 +17,37 @@ public class DialogueSequenceWrapper : MonoBehaviour
         _parent = _gameWindows.VisualNovelParent;
     }
 
-    public async UniTask StartSequence(DialogueSequence dialogueSequence, NPC npc)
+    public async UniTask StartSequence(DialogueSequence dialogueSequence, NPC npc = null, bool isSkipFade = false)
     {
-        await _gameWindows.FadeIn(0.3f);
+        if (!isSkipFade)
+        {
+            await _gameWindows.FadeIn(0.3f);
+        }
+
         var instance = InstantiateDefault(dialogueSequence);
         instance.OneAlpha();
-        await _gameWindows.FadeOut(0.2f);
+        if (!isSkipFade)
+        {
+            await _gameWindows.FadeOut(0.2f);
+        }
 
         await instance.Play();
-        
-        await _gameWindows.FadeIn(0.3f);
-        npc.HideNpc();
+        if (!isSkipFade)
+        {
+            await _gameWindows.FadeIn(0.3f);
+        }
+
+        if (npc != null)
+        {
+            npc.HideNpc();
+        }
+
         instance.gameObject.SetActive(false);
-        await _gameWindows.FadeOut(0.2f);
+        if (!isSkipFade)
+        {
+            await _gameWindows.FadeOut(0.2f);
+        }
+
         Object.Destroy(instance.gameObject);
     }
 

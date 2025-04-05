@@ -16,6 +16,30 @@ PrefabInstance:
       propertyPath: _maxWill
       value: 99
       objectReference: {fileID: 0}
+    - target: {fileID: 2921506716184258551, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
+      propertyPath: _listenCountToMercy
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5677598420731701867, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
+      propertyPath: attackColor.b
+      value: 0.32526445
+      objectReference: {fileID: 0}
+    - target: {fileID: 5677598420731701867, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
+      propertyPath: attackColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5677598420731701867, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
+      propertyPath: projectileSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5677598420731701867, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
+      propertyPath: highlightDuration
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5677598420731701867, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
+      propertyPath: betweenHighlightsDelay
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 8018483288264124442, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -59,5 +83,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2507930606964722393, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8298141214581656512}
   m_SourcePrefab: {fileID: 100100000, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
+--- !u!1 &3017903679973689027 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2507930606964722393, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
+  m_PrefabInstance: {fileID: 805100833386220570}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8298141214581656512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3017903679973689027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3eabbbc6d1340f18bb36f976272f7b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyName: Mom
+  EnemySprite: {fileID: 21300000, guid: 005888ede18a58e4db8d069cfa3007cb, type: 3}
+  _maxWill: 65
+  _betweenAttacksTime: 0.75
+  _listenCountToMercy: 3
+  <Damage>k__BackingField: 1
+  attacksCount: {x: 1, y: 1}

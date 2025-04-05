@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Game.Core.VisualNovel
@@ -125,12 +126,12 @@ namespace Game.Core.VisualNovel
             }
         }
 
-        public async UniTask<string> Show()
+        public virtual async UniTask<string> Show()
         {
             UpdateAll();
             gameObject.SetActive(true);
             var resultText = await _text.Show();
-            await UniTask.WaitForSeconds(0.5f);
+            await UniTask.WaitForSeconds(0.15f);
             return resultText;
         }
 

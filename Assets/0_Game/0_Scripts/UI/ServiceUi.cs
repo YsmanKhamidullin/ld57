@@ -14,16 +14,16 @@ public class ServiceUi : MonoBehaviour
     public GraphicRaycaster FullScreenRayCaster { get; private set; }
 
     [SerializeField]
-    private PauseWindow _pauseWindow;
+    public PauseWindow _pauseWindow;
 
     [SerializeField]
-    private GamePlayWindow _gamePlayWindow;
+    public GamePlayWindow _gamePlayWindow;
 
     [SerializeField]
-    private FightWindow _fightWindow;
+    public FightWindow _fightWindow;
 
     [SerializeField]
-    private GameStartWindow _gameStartWindow;
+    public GameStartWindow _gameStartWindow;
 
     public void ShowGameStart()
     {

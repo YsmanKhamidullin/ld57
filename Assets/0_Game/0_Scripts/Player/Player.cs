@@ -7,7 +7,7 @@ using UnityEngine;
 public class Player : MonoBehaviour, IWill
 {
     [SerializeField]
-    private int _maxWill;
+    private int _maxWill = 3;
 
     private int _currentWill;
 
@@ -23,6 +23,8 @@ public class Player : MonoBehaviour, IWill
         set => _maxWill = value;
     }
 
+    public int TalkDamage => 10;
+
     private void Start()
     {
         _currentWill = _maxWill;
@@ -34,5 +36,10 @@ public class Player : MonoBehaviour, IWill
         stepPos.y += 1f;
         transform.DOMove(stepPos, 0.25f);
         await UniTask.WaitForSeconds(0.25f);
+    }
+
+    public void TakeDamage(int dmg)
+    {
+        CurrentWill -= dmg;
     }
 }
