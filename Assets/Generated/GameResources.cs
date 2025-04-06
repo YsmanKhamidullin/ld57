@@ -36,7 +36,12 @@ public static class GameResources
     public static class VisualNovel
     {
         public static DialogueSequence Battle_Tutor_01 => Resources.Load<DialogueSequence>("VisualNovel/Battle_Tutor_01");
+        public static DialogueSequence Father_Win => Resources.Load<DialogueSequence>("VisualNovel/Father_Win");
         public static DialogueSequence Intro_01 => Resources.Load<DialogueSequence>("VisualNovel/Intro_01");
+        public static DialogueSequence Mother_Win => Resources.Load<DialogueSequence>("VisualNovel/Mother_Win");
+        public static DialogueSequence Sand_Enter => Resources.Load<DialogueSequence>("VisualNovel/Sand_Enter");
+        public static DialogueSequence True_End => Resources.Load<DialogueSequence>("VisualNovel/True_End");
     }
     public static DG.Tweening.Core.DOTweenSettings DOTweenSettings => Resources.Load<DG.Tweening.Core.DOTweenSettings>("DOTweenSettings");
+    public static ServiceLadder Ladder => Resources.Load<ServiceLadder>("Ladder");
 }

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ServiceCards : MonoBehaviour
 {
@@ -56,7 +57,14 @@ public class ServiceCards : MonoBehaviour
                 {
                     LadderStep ladderStep = Root.Instance.ServiceLadder.GetPreviousStep();
                     await Root.Instance.Player.Move(ladderStep);
+                    ladderStep.CallOnStep();
                     l.DecrementStep();
+                    await TryInteractByCurrentStep(ladderStep);
+                    if (Root.Instance.ServiceFight.InFight == false)
+                    {
+                        var n = Root.Instance.ServiceLadder.GetNextStep();
+                        await TryInteractByNextStep(n);
+                    }
                 }
                 else
                 {
@@ -116,7 +124,9 @@ public class ServiceCards : MonoBehaviour
             case LadderStep.StepTypes.NPC:
                 await step.Npc.Interact();
                 break;
-            case LadderStep.StepTypes.EachFive:
+            case LadderStep.StepTypes.EnterSand:
+                break;
+            case LadderStep.StepTypes.ExitSand:
                 break;
             case LadderStep.StepTypes.BossFight:
 
@@ -136,14 +146,17 @@ public class ServiceCards : MonoBehaviour
                 break;
             case LadderStep.StepTypes.NPC:
                 break;
-            case LadderStep.StepTypes.EachFive:
+            case LadderStep.StepTypes.EnterSand:
+                SceneManager.LoadScene(2);
+                break;
+            case LadderStep.StepTypes.ExitSand:
+                SceneManager.LoadScene(1);
                 break;
             case LadderStep.StepTypes.BossFight:
                 if (step.HaveEnemies())
                 {
                     await Root.Instance.ServiceFight.ForceStartFight(step);
                 }
-
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

@@ -48,7 +48,10 @@ namespace Game.Core.VisualNovel
             var dialogueText = await dialogue.Show();
             if (dialogue is not OnBoardingDialogue)
             {
-                await ServiceInput.AwaitClick();
+                if (dialogue is not ButtonDialogue)
+                {
+                    await ServiceInput.AwaitClick();
+                }
             }
 
             dialogue.Hide();

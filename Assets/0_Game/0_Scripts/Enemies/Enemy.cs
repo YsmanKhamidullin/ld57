@@ -83,6 +83,8 @@ public abstract class Enemy : MonoBehaviour, IWill
         set => _currentWill = Math.Clamp(value, 0, _maxWill);
     }
 
+    public bool IsWinByMercy => _listenCountToMercy == 0;
+
     public int MaxWill
     {
         get => _maxWill;

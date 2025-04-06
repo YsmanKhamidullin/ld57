@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class ServiceLadder : MonoBehaviour
 {
+    public int CurrentHeight => Steps[_currentStepIndex].Height;
     public List<LadderStep> Steps;
     public int _currentStepIndex = 0;
 

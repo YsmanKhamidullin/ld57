@@ -46,9 +46,10 @@ public class FightWindow : BaseWindow
     }
 
 
-    public void UpdateWill()
+    public async UniTask UpdateWill()
     {
         EnemyWill.UpdateCurrent();
+        await UniTask.WaitForSeconds(0.1f);
     }
 
     public async UniTask SetUpActionPhase()
@@ -106,7 +107,7 @@ public class FightWindow : BaseWindow
     public async UniTask HandleEnemyDeath(Enemy enemy)
     {
         bool isWillZero = enemy.CurrentWill <= 0;
-        if (isWillZero)
+        if (isWillZero && enemy.IsWinByMercy)
         {
             await EnemyVisual.StartDialogueBeforeVanish();
         }

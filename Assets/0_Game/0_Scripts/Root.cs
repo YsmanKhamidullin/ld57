@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Root : MonoBehaviour
 {
     [field: SerializeField]
     public List<Transform> CardsDefaultPoses;
-    
+
     [field: SerializeField]
     public ServiceFight ServiceFight { get; private set; }
 
@@ -15,6 +16,7 @@ public class Root : MonoBehaviour
 
     [field: SerializeField]
     public BattleCardsContainer BattleCardsContainer { get; private set; }
+
     [field: SerializeField]
     public DialogueSequenceWrapper DialogueSequenceWrapper { get; private set; }
 
@@ -29,6 +31,7 @@ public class Root : MonoBehaviour
 
     [field: SerializeField]
     public Player Player { get; private set; }
+
     [field: SerializeField]
     public EnemyVisual EnemyVisual { get; private set; }
 
@@ -48,5 +51,16 @@ public class Root : MonoBehaviour
         }
 
         Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public void CreateNewLadder()
+    {
+        if (ServiceLadder.gameObject != null)
+        {
+            Destroy(ServiceLadder.gameObject);
+        }
+
+        ServiceLadder = Instantiate(GameResources.Ladder, transform);
     }
 }

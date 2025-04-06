@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LadderStep : MonoBehaviour
 {
@@ -9,14 +10,22 @@ public class LadderStep : MonoBehaviour
         Basic,
         GameStart,
         NPC,
-        EachFive,
+        EnterSand,
         BossFight,
+        ExitSand,
     }
 
+    public UnityEvent OnStep;
     public StepTypes StepType;
     public List<Enemy> Enemies;
     public NPC Npc;
+    public int Height;
 
+    public void ChangeTypeToNpc()
+    {
+        StepType = StepTypes.NPC;
+    }
+    
     public Enemy GetEnemy()
     {
         var random = Enemies[0];
@@ -42,5 +51,10 @@ public class LadderStep : MonoBehaviour
         {
             Enemies.Remove(e);
         }
+    }
+
+    public void CallOnStep()
+    {
+        OnStep?.Invoke();
     }
 }

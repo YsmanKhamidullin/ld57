@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ServiceFight : MonoBehaviour
 {
@@ -35,11 +36,27 @@ public class ServiceFight : MonoBehaviour
     {
         await HandleFinishBeforeExit();
         await Root.Instance.ServiceUi.FadeIn(0.25f);
+        if (CheckWinGame())
+        {
+            SceneManager.LoadScene(0);
+            return;
+        }
+
         Root.Instance.ServiceUi.HideFightWindow();
         Root.Instance.ServiceUi.ShowGamePlay();
         InFight = false;
         await Root.Instance.ServiceUi.FadeOut(0.15f);
         await HandleFinishAfterExit();
+    }
+
+    private bool CheckWinGame()
+    {
+        if (_enemy is HorizontalAndVerticalEnemy)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private async UniTask HandleFinishBeforeExit()
@@ -70,7 +87,7 @@ public class ServiceFight : MonoBehaviour
         await Root.Instance.Mind.Decrement();
         _enemy.TakeDamage(_player.TalkDamage);
 
-        _fightWindow.UpdateWill();
+        await _fightWindow.UpdateWill();
         await PhaseBattle();
     }
 
@@ -78,6 +95,7 @@ public class ServiceFight : MonoBehaviour
     {
         await Root.Instance.Mind.Increment();
         _enemy.TakeListenDamage();
+        await _fightWindow.UpdateWill();
         await PhaseBattle();
     }
 

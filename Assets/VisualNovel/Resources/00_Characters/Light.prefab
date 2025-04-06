@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6790443197425577821, guid: 72945f3ff40ef944eb918c35e753124e, type: 3}
       propertyPath: m_Name
-      value: Blue
+      value: Light
       objectReference: {fileID: 0}
     - target: {fileID: 9122472462075792307, guid: 72945f3ff40ef944eb918c35e753124e, type: 3}
       propertyPath: m_LocalPosition.x
