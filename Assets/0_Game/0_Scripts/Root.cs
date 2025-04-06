@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Root : MonoBehaviour
 {
+    [field: SerializeField]
+    public List<Transform> CardsDefaultPoses;
+    
     [field: SerializeField]
     public ServiceFight ServiceFight { get; private set; }
 

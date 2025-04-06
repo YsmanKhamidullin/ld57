@@ -108,7 +108,7 @@ public class FightWindow : BaseWindow
         bool isWillZero = enemy.CurrentWill <= 0;
         if (isWillZero)
         {
-            await EnemyVisual.StartDialogue();
+            await EnemyVisual.StartDialogueBeforeVanish();
         }
 
         await AnimateVanishEnemy();

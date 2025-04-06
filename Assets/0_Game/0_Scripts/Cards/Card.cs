@@ -62,14 +62,13 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     public float selectionOffset = 50;
     private float pointerDownTime;
     private float pointerUpTime;
-    private Vector2 _defaultPos;
+    private Vector2 _defaultPos => Root.Instance.CardsDefaultPoses[transform.GetSiblingIndex()].position;
 
     void Start()
     {
         canvas = GetComponentInParent<Canvas>();
         imageComponent = GetComponent<Image>();
         _visual.Initialize(this);
-        _defaultPos = transform.position;
     }
 
     void Update()

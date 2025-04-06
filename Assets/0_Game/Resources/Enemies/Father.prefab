@@ -123,6 +123,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyName: Father
   EnemySprite: {fileID: 21300000, guid: 005888ede18a58e4db8d069cfa3007cb, type: 3}
+  _beforeAttackText:
+  - ...
+  - How much longer will you keep crying?
+  - "You can\u2019t run away forever."
+  - You have to become stronger.
+  _noWillText:
+  - IsPlayerTalk: 1
+    PlayerText: 'Hello, father.
+
+'
+    EnemyText: 
+  - IsPlayerTalk: 1
+    PlayerText: "I hope you\u2019re doing well health-wise."
+    EnemyText: 
+  - IsPlayerTalk: 1
+    PlayerText: "These past few years, you\u2019ve been getting sick more often\u2014I\u2019m
+      really worried about you."
+    EnemyText: 
+  - IsPlayerTalk: 1
+    PlayerText: I remember that day when you bought me ice cream, even though I was
+      sick.
+    EnemyText: 
+  - IsPlayerTalk: 1
+    PlayerText: "Thinking back to those times, I\u2019m truly scared of what tomorrow
+      might bring."
+    EnemyText: 
+  - IsPlayerTalk: 0
+    PlayerText: 
+    EnemyText: ...
   _maxWill: 35
   _betweenAttacksTime: 0.75
   _listenCountToMercy: 5

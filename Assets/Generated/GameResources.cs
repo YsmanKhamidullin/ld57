@@ -23,6 +23,7 @@ public static class GameResources
     }
     public static class Fonts
     {
+        public static TMPro.TMP_FontAsset Kaph_Regular_SDF => Resources.Load<TMPro.TMP_FontAsset>("Fonts/Kaph-Regular SDF");
         public static TMPro.TMP_FontAsset KayPhoDu_Bold_SDF => Resources.Load<TMPro.TMP_FontAsset>("Fonts/KayPhoDu-Bold SDF");
         public static TMPro.TMP_FontAsset KayPhoDu_Regular_SDF => Resources.Load<TMPro.TMP_FontAsset>("Fonts/KayPhoDu-Regular SDF");
     }

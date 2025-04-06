@@ -59,6 +59,7 @@ public class ServiceFight : MonoBehaviour
             return;
         }
 
+        await Root.Instance.EnemyVisual.SayBeforeAttack();
         await _fightWindow.SetUpBattlePhase();
         await _enemy.Attack(_fightWindow.BattleField.Cells);
         await _fightWindow.SetUpActionPhase();

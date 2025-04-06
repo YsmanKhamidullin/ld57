@@ -23,7 +23,7 @@ public class EnemyAttack : MonoBehaviour
     private float highlightDuration = 0.5f;
 
     [SerializeField]
-    private Color attackColor = Color.red;
+    public Color attackColor = Color.red;
 
     [Header("Projectile Settings")]
     [SerializeField]

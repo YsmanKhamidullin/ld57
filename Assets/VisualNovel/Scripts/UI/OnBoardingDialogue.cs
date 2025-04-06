@@ -1,6 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
 using Game.Core.VisualNovel;
-using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.UI;
 

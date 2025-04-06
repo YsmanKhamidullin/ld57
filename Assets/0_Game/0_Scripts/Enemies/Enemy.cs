@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 // new EnemyAttack.AttackPattern
@@ -36,16 +37,36 @@ using Random = UnityEngine.Random;
 //     }
 // },
 
+[Serializable]
+public class DialogueWithEnemy
+{
+    public bool IsPlayerTalk;
+
+    [TextArea]
+    public string PlayerText;
+
+    [TextArea]
+    public string EnemyText;
+}
+
 public abstract class Enemy : MonoBehaviour, IWill
 {
     public abstract List<EnemyAttack.AttackPattern> AttackPatterns { get; }
     public abstract Vector2Int AttacksCount { get; }
-
+    public Color Color => GetComponent<EnemyAttack>().attackColor;
+    
     public string EnemyName;
 
     public Sprite EnemySprite;
 
     private int _currentWill = 1;
+
+    [TextArea]
+    [SerializeField]
+    public List<string> _beforeAttackText;
+    
+    [SerializeField]
+    public List<DialogueWithEnemy> _noWillText;
 
     [SerializeField]
     private int _maxWill;
