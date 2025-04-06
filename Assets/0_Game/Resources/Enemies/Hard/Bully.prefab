@@ -101,8 +101,8 @@ MonoBehaviour:
   EnemySprite: {fileID: 21300000, guid: 73a2bec1b0444ee4ba9774c502ec5f5b, type: 3}
   _beforeAttackText: []
   _noWillText: []
-  _maxWill: 15
+  _maxWill: 20
   _betweenAttacksTime: 0.45
-  _listenCountToMercy: 9
+  _listenCountToMercy: 6
   <Damage>k__BackingField: 1
   attacksCount: {x: 8, y: 10}

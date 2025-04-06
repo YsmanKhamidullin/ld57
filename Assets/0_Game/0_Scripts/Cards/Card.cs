@@ -64,11 +64,24 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     private float pointerUpTime;
     private Vector2 _defaultPos => Root.Instance.CardsDefaultPoses[transform.GetSiblingIndex()].position;
 
+    public CardBlocker CardBlocker;
+
+    public bool IsBlockedByDefault;
+
     void Start()
     {
         canvas = GetComponentInParent<Canvas>();
         imageComponent = GetComponent<Image>();
         _visual.Initialize(this);
+        if (IsBlockedByDefault)
+        {
+            CardBlocker.Block();
+        }
+
+        if (CardType == CardTypes.Backward && GameSettings.IsGotFirstEnding)
+        {
+            _ = CardBlocker.UnBlock();
+        }
     }
 
     void Update()
@@ -138,17 +151,27 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     private bool CheckAvailableInput(PointerEventData eventData)
     {
         var notUsingCard = Root.Instance.ServiceCards.IsUsingCard == false;
-        return eventData.button == PointerEventData.InputButton.Left && notUsingCard;
+        return eventData.button == PointerEventData.InputButton.Left && notUsingCard && !CardBlocker.IsBlocked;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (CardBlocker.IsBlocked)
+        {
+            return;
+        }
+
         PointerEnterEvent.Invoke(this);
         _isHovering = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (CardBlocker.IsBlocked)
+        {
+            return;
+        }
+
         PointerExitEvent.Invoke(this);
         _isHovering = false;
     }

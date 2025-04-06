@@ -40,10 +40,6 @@ PrefabInstance:
       propertyPath: betweenHighlightsDelay
       value: 0.25
       objectReference: {fileID: 0}
-    - target: {fileID: 7459794518738200734, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.3254902
-      objectReference: {fileID: 0}
     - target: {fileID: 8018483288264124442, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -112,15 +108,11 @@ MonoBehaviour:
   EnemyName: Mom
   EnemySprite: {fileID: 21300000, guid: 005888ede18a58e4db8d069cfa3007cb, type: 3}
   _beforeAttackText:
-  - You never trully listened me!
-  - You always talk only about yourself!
-  - Have you ever even asked me about my past?
+  - You never listened to me and your father.
+  - Have you ever even been curious to hear what I've been through?
   - "It\u2019s so easy to blame me, isn\u2019t it?"
-  - "After all, I\u2019m human too."
-  - 
-  - Why do you keep coming back here?
-  - "You won\u2019t find the answers here. Endless thinking won\u2019t help. The
-    world rewards those who take action."
+  - "After all, I\u2019m human too. "
+  - "Why do you keep coming back here? Endless thinking won\u2019t help. "
   _noWillText:
   - IsPlayerTalk: 0
     PlayerText: 
@@ -136,8 +128,8 @@ MonoBehaviour:
   - IsPlayerTalk: 0
     PlayerText: 
     EnemyText: "I\u2019m just worried about you."
-  _maxWill: 65
-  _betweenAttacksTime: 0.75
-  _listenCountToMercy: 3
+  _maxWill: 45
+  _betweenAttacksTime: 0.6
+  _listenCountToMercy: 2
   <Damage>k__BackingField: 1
   attacksCount: {x: 1, y: 1}

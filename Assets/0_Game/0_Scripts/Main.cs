@@ -139,4 +139,9 @@ public class Main : MonoBehaviour
     {
         GameSettings.SoundValue = obj;
     }
+
+    public static void SetFirstEndingAchieved()
+    {
+        GameSettings.IsGotFirstEnding = true;
+    }
 }

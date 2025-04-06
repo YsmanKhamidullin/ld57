@@ -22,6 +22,7 @@ public class ButtonDialogue : Dialogue
 
 
         await UniTask.WaitUntil(() => isPassed);
+        await UniTask.WaitForSeconds(0.2f);
         return "";
     }
 

@@ -25,6 +25,10 @@ public class ServiceUi : MonoBehaviour
     [SerializeField]
     public GameStartWindow _gameStartWindow;
 
+
+    [SerializeField]
+    public FirstEndingWindow FirstEndingWindow;
+
     public void ShowGameStart()
     {
     }
@@ -77,5 +81,11 @@ public class ServiceUi : MonoBehaviour
         await AnimationsUtil.FadeOut(Fader, time);
         await UniTask.WaitForSeconds(0.2f);
         Fader.raycastTarget = false;
+    }
+
+    public async UniTask ShowFirstEnding()
+    {
+        FirstEndingWindow.Show();
+        await FirstEndingWindow.Animate();
     }
 }

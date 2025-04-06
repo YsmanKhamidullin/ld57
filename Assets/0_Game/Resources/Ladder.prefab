@@ -399,12 +399,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a799211c24c089146970cb214962c62b, type: 3}
+--- !u!1 &1717875778319887243 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1763464909925286104, guid: a799211c24c089146970cb214962c62b, type: 3}
+  m_PrefabInstance: {fileID: 1129852741992557395}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3429526684562625180 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2321090264512575951, guid: a799211c24c089146970cb214962c62b, type: 3}
   m_PrefabInstance: {fileID: 1129852741992557395}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1717875778319887243}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 308ded14dd9847808f076e9cd2b51bf2, type: 3}
@@ -687,7 +692,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6813881920422875773, guid: a799211c24c089146970cb214962c62b, type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
-      value: 0.36862746
+      value: 0.4745098
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -798,10 +803,6 @@ PrefabInstance:
     - target: {fileID: 5316555132413259016, guid: a799211c24c089146970cb214962c62b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6813881920422875773, guid: a799211c24c089146970cb214962c62b, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.a
-      value: 0.06666667
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1238,6 +1239,38 @@ PrefabInstance:
       propertyPath: _dialogue
       value: 
       objectReference: {fileID: 2562960355060568296, guid: 04aef6bca8605694f810004bf6a64c6d, type: 3}
+    - target: {fileID: 2321090264512575951, guid: a799211c24c089146970cb214962c62b, type: 3}
+      propertyPath: OnInteractComplete.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321090264512575951, guid: a799211c24c089146970cb214962c62b, type: 3}
+      propertyPath: OnInteractComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321090264512575951, guid: a799211c24c089146970cb214962c62b, type: 3}
+      propertyPath: OnInteractComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1717875778319887243}
+    - target: {fileID: 2321090264512575951, guid: a799211c24c089146970cb214962c62b, type: 3}
+      propertyPath: OnInteractComplete.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321090264512575951, guid: a799211c24c089146970cb214962c62b, type: 3}
+      propertyPath: OnInteractComplete.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321090264512575951, guid: a799211c24c089146970cb214962c62b, type: 3}
+      propertyPath: OnInteractComplete.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321090264512575951, guid: a799211c24c089146970cb214962c62b, type: 3}
+      propertyPath: OnInteractComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321090264512575951, guid: a799211c24c089146970cb214962c62b, type: 3}
+      propertyPath: OnInteractComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5316555132413259016, guid: a799211c24c089146970cb214962c62b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1280,7 +1313,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6813881920422875773, guid: a799211c24c089146970cb214962c62b, type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
-      value: 1
+      value: 0.8666667
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1705,7 +1738,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2895270999898950565, guid: 9bf4f2c0c3c6d9c4eaaf45f8da719a97, type: 3}
       propertyPath: StepType
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3526190264467860831, guid: 9bf4f2c0c3c6d9c4eaaf45f8da719a97, type: 3}
       propertyPath: m_Name

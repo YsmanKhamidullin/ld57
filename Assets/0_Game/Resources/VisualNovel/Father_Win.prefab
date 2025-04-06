@@ -62,11 +62,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2698053993817988403, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2698053993817988403, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3489440342664218047, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: m_Pivot.x
@@ -234,7 +234,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5924684187724265858, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6584488270347327370, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: m_IsActive
@@ -1001,11 +1001,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2698053993817988403, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2698053993817988403, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3489440342664218047, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: m_Pivot.x
@@ -1173,7 +1173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5924684187724265858, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6584488270347327370, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: m_IsActive
@@ -2600,7 +2600,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6712134932257264356, guid: 76695245fc6d6a445999e338205283c2, type: 3}
       propertyPath: _currentIndex
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6712134932257264356, guid: 76695245fc6d6a445999e338205283c2, type: 3}
       propertyPath: _alphaMinMax.x

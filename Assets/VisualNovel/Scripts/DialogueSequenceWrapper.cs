@@ -17,7 +17,7 @@ public class DialogueSequenceWrapper : MonoBehaviour
         _parent = _gameWindows.VisualNovelParent;
     }
 
-    public async UniTask StartSequence(DialogueSequence dialogueSequence, NPC npc = null, bool isSkipFade = false)
+    public async UniTask StartSequence(DialogueSequence dialogueSequence, NPC npc = null, bool isSkipFade = true)
     {
         if (!isSkipFade)
         {
@@ -26,6 +26,7 @@ public class DialogueSequenceWrapper : MonoBehaviour
 
         var instance = InstantiateDefault(dialogueSequence);
         instance.OneAlpha();
+        instance.HideAll();
         if (!isSkipFade)
         {
             await _gameWindows.FadeOut(0.2f);

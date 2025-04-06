@@ -18,6 +18,7 @@ public class ServiceFight : MonoBehaviour
         _player = Root.Instance.Player;
         _enemy = step.GetEnemy();
         Root.Instance.ServiceUi.HideGamePlay();
+        Root.Instance.ServiceAudio.PlayBattleStart();
         await Root.Instance.ServiceUi.FadeIn(0.25f);
         _fightWindow = Root.Instance.ServiceUi.ShowFightWindow();
         _fightWindow.SetUp(this, _player, _enemy);
@@ -35,9 +36,12 @@ public class ServiceFight : MonoBehaviour
     private async UniTask FinishBattle()
     {
         await HandleFinishBeforeExit();
+        Root.Instance.ServiceAudio.PlayBattleEnd();
         await Root.Instance.ServiceUi.FadeIn(0.25f);
         if (CheckWinGame())
         {
+            Main.SetFirstEndingAchieved();
+            await Root.Instance.ServiceUi.ShowFirstEnding();
             SceneManager.LoadScene(0);
             return;
         }
@@ -47,6 +51,23 @@ public class ServiceFight : MonoBehaviour
         InFight = false;
         await Root.Instance.ServiceUi.FadeOut(0.15f);
         await HandleFinishAfterExit();
+        await OnBattleEnd();
+    }
+
+    public async UniTask UseFlee()
+    {
+        await Root.Instance.ServiceUi.FadeIn(0.25f);
+        Root.Instance.ServiceUi.HideFightWindow();
+        Root.Instance.ServiceUi.ShowGamePlay();
+        InFight = false;
+        await Root.Instance.ServiceUi.FadeOut(0.15f);
+        await Root.Instance.ServiceCards.UseCardByType(CardTypes.Backward);
+        await OnBattleEnd();
+    }
+    
+    private async UniTask OnBattleEnd()
+    {
+        await Root.Instance.PlayerWill.TryUnblockDreamCard();
     }
 
     private bool CheckWinGame()
@@ -97,16 +118,6 @@ public class ServiceFight : MonoBehaviour
         _enemy.TakeListenDamage();
         await _fightWindow.UpdateWill();
         await PhaseBattle();
-    }
-
-    public async UniTask UseFlee()
-    {
-        await Root.Instance.ServiceUi.FadeIn(0.25f);
-        Root.Instance.ServiceUi.HideFightWindow();
-        Root.Instance.ServiceUi.ShowGamePlay();
-        InFight = false;
-        await Root.Instance.ServiceUi.FadeOut(0.15f);
-        await Root.Instance.ServiceCards.UseCardByType(CardTypes.Backward);
     }
 
     private async UniTask HandleFinishAfterExit()

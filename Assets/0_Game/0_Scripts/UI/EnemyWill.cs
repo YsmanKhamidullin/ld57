@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,8 @@ public class EnemyWill : MonoBehaviour
 {
     [SerializeField]
     private Image fillImage;
+    [SerializeField]
+    private TextMeshProUGUI _label;
 
     private Sequence _curSeq;
     private Enemy _enemy;
@@ -14,6 +17,8 @@ public class EnemyWill : MonoBehaviour
     {
         _enemy = enemy;
         fillImage.fillAmount = 1f;
+        fillImage.color = enemy.Color;
+        _label.color = enemy.Color;
     }
 
     public void UpdateCurrent()

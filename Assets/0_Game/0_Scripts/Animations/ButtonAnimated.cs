@@ -18,12 +18,20 @@ public class ButtonAnimated : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField]
     private Color _selectedColor = Color.white;
 
+    private Sequence punchSeq;
+
     private Color _defaultColor;
     private bool _isHovering;
 
     private void Awake()
     {
         _defaultColor = _colorImage.color;
+    }
+
+    private void OnDestroy()
+    {
+        punchSeq.Kill();
+        _scaleRoot.DOKill();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -57,8 +65,9 @@ public class ButtonAnimated : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void Punch()
     {
+        punchSeq.Kill();
         var newScale = Vector3.one * 1.1f;
-        DOTween.Sequence()
+        punchSeq = DOTween.Sequence()
             .Append(_animRoot.DOBlendablePunchRotation(_animRoot.forward * 1f, 0.5f, 6).SetEase(Ease.InOutSine))
             .Join(_scaleRoot.DOScale(newScale, 0.25f).SetEase(Ease.InSine)).Play();
     }

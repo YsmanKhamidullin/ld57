@@ -27,6 +27,9 @@ public class Root : MonoBehaviour
     public ServiceUi ServiceUi { get; private set; }
 
     [field: SerializeField]
+    public PlayerWill PlayerWill { get; private set; }
+
+    [field: SerializeField]
     public ServiceCards ServiceCards { get; private set; }
 
     [field: SerializeField]
@@ -39,9 +42,13 @@ public class Root : MonoBehaviour
     public PlayerHeart PlayerHeart { get; private set; }
 
     [field: SerializeField]
+    public ServiceAudio ServiceAudio { get; private set; }
+
+    [field: SerializeField]
     public Mind Mind { get; private set; }
 
     public static Root Instance;
+    private static bool isInSandScene;
 
     private void Awake()
     {
@@ -52,15 +59,32 @@ public class Root : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        StartGame();
     }
 
-    public void CreateNewLadder()
+    private void StartGame()
     {
-        if (ServiceLadder.gameObject != null)
+        ServiceAudio.PlayStartGame();
+        isInSandScene = false;
+    }
+
+    public static void TryLoadSand()
+    {
+        if (isInSandScene)
         {
-            Destroy(ServiceLadder.gameObject);
+            return;
         }
 
-        ServiceLadder = Instantiate(GameResources.Ladder, transform);
+        SceneManager.LoadScene(2);
+    }
+
+    public static void TryLoadGame()
+    {
+        if (!isInSandScene)
+        {
+            return;
+        }
+
+        SceneManager.LoadScene(1);
     }
 }

@@ -34,6 +34,7 @@ public class FightWindow : BaseWindow
         _enemy = enemy;
         _service = serviceFight;
         EnemyName.text = enemy.EnemyName;
+        EnemyName.color = enemy.Color;
         EnemyImage.sprite = enemy.EnemySprite;
         EnemyWill.SetUp(enemy);
         EnemyVisual.SetUp();
@@ -44,7 +45,6 @@ public class FightWindow : BaseWindow
         base.Hide();
         EnemyVisual.Hide();
     }
-
 
     public async UniTask UpdateWill()
     {

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Game.Core.VisualNovel;
+using NaughtyAttributes;
 using UnityEngine;
 
 public class EnemyVisual : MonoBehaviour
@@ -21,42 +22,22 @@ public class EnemyVisual : MonoBehaviour
         _beforeAttackSayIndex = 0;
         gameObject.SetActive(true);
         var mainModule = _enemyVisualParticle.main;
-
-        Color startColor = mainModule.startColor.color;
-        startColor.a = 0f;
-        mainModule.startColor = startColor;
-        Color targetColor = new Color(startColor.r, startColor.g, startColor.b, 1f);
-
-        DOTween.To(
-                () => mainModule.startColor.color,
-                x => mainModule.startColor = x,
-                targetColor,
-                1.2f)
-            .SetEase(Ease.OutSine);
+        mainModule.startColor = _enemy.Color;
+        _enemyVisualParticle.Play();
     }
 
     public async UniTask Vanish()
     {
-        var mainModule = _enemyVisualParticle.main;
-
-        Color startColor = mainModule.startColor.color;
-        Color targetColor = new Color(startColor.r, startColor.g, startColor.b, 0f);
-        mainModule.startColor = Color.white;
         await DOTween.Sequence()
-            .Append(_enemyVisualParticle.transform.DOPunchScale(Vector3.one * 0.7f, 0.3f).SetEase(Ease.OutQuart))
+            .Append(_enemyVisualParticle.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f).SetEase(Ease.OutQuart))
             .ToUniTask();
         _enemyVisualParticle.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.InSine);
-        mainModule.startColor = startColor;
-        await DOTween.To(
-                () => mainModule.startColor.color,
-                x => mainModule.startColor = x,
-                targetColor,
-                0.5f)
-            .SetEase(Ease.InOutSine)
-            .ToUniTask();
-        await UniTask.WaitForSeconds(1f);
+        var e = _enemyVisualParticle.emission;
+        e.rateOverTime = 0;
+        var main = _enemyVisualParticle.main;
+        main.simulationSpeed = .7f;
+        await UniTask.WaitForSeconds(1.5f);
     }
-
     public async UniTask SayBeforeAttack()
     {
         if (_beforeAttackSayIndex >= _enemy._beforeAttackText.Count)
@@ -114,6 +95,7 @@ public class EnemyVisual : MonoBehaviour
     public Enemy SpawnEnemy(Enemy prefab)
     {
         _enemy = Instantiate(prefab, transform);
+        _enemy.CurrentWill = _enemy.MaxWill;
         _enemyVisualParticle = _enemy.GetComponentInChildren<ParticleSystem>();
         var mainModule = _enemyVisualParticle.main;
         mainModule.startColor = _enemy.Color;

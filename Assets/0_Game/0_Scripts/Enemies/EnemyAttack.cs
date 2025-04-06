@@ -67,21 +67,21 @@ public class EnemyAttack : MonoBehaviour
             throw new Exception("No attack patterns defined!");
         }
 
-        var availableAttackPatterns = attackPatterns.Where(ap => !ap.isBlockedForSelection).ToList();
-        if (availableAttackPatterns.Count == 0)
-        {
-            Debug.Log("No available attack patterns found. Resetting selection flags.");
-            foreach (var a in attackPatterns)
-            {
-                a.isBlockedForSelection = false;
-            }
+        // var availableAttackPatterns = attackPatterns.Where(ap => !ap.isBlockedForSelection).ToList();
+        // if (availableAttackPatterns.Count == 0)
+        // {
+            // Debug.Log("No available attack patterns found. Resetting selection flags.");
+            // foreach (var a in attackPatterns)
+            // {
+                // a.isBlockedForSelection = false;
+            // }
 
-            availableAttackPatterns = new List<AttackPattern>(attackPatterns);
-        }
+            // availableAttackPatterns = new List<AttackPattern>(attackPatterns);
+        // }
 
-        var selectedAttackPattern = availableAttackPatterns[Random.Range(0, availableAttackPatterns.Count)];
-
-        selectedAttackPattern.isBlockedForSelection = true;
+        // var selectedAttackPattern = availableAttackPatterns[Random.Range(0, availableAttackPatterns.Count)];
+        // selectedAttackPattern.isBlockedForSelection = true;
+        var selectedAttackPattern = attackPatterns.GetRandom();
         Debug.Log($"Attacking with pattern: {selectedAttackPattern.patternName}");
 
         await ExecuteAttackPattern(selectedAttackPattern);
@@ -103,10 +103,9 @@ public class EnemyAttack : MonoBehaviour
         direction.z = 0;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
         spawnedProjectile.transform.rotation = Quaternion.Euler(0, 0, angle);
-        await spawnedProjectile.transform.DOScale(Vector3.one, 0.15f).From(Vector3.zero).SetEase(Ease.InQuad)
-            .ToUniTask();
         await HighlightAllCells(pattern.targetPositions);
         float reactTime = 0.2f;
+        spawnedProjectile.transform.DOScale(Vector3.one, reactTime).From(Vector3.zero).SetEase(Ease.InQuad);
         await UniTask.WaitForSeconds(reactTime);
         bool isTutoring = await Onboarding.TryBattleTutorial(0);
         if (isTutoring)

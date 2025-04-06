@@ -6,6 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class ServiceCards : MonoBehaviour
 {
+    public Card ForwardCard;
+    public Card BackWardCard;
+    public Card DreamCard;
+    public Card TalkCard;
+    public Card ListenCard;
+    public Card FleeCard;
+    
     public bool IsUsingCard;
 
     public void TryUseCard(Card card)
@@ -38,6 +45,7 @@ public class ServiceCards : MonoBehaviour
                 {
                     LadderStep ladderStep = Root.Instance.ServiceLadder.GetNextStep();
                     await Root.Instance.Player.Move(ladderStep);
+                    ladderStep.CallOnStep();
                     l.IncrementStep();
                     await TryInteractByCurrentStep(ladderStep);
                     if (Root.Instance.ServiceFight.InFight == false)
@@ -111,6 +119,10 @@ public class ServiceCards : MonoBehaviour
             Root.Instance.Player.CurrentWill++;
             await Root.Instance.Mind.Increment();
         }
+        else
+        {
+            await Root.Instance.Mind.ImpactZero();
+        }
     }
 
     public async UniTask TryInteractByNextStep(LadderStep step)
@@ -147,9 +159,11 @@ public class ServiceCards : MonoBehaviour
             case LadderStep.StepTypes.NPC:
                 break;
             case LadderStep.StepTypes.EnterSand:
+                Root.TryLoadSand();
                 SceneManager.LoadScene(2);
                 break;
             case LadderStep.StepTypes.ExitSand:
+                Root.TryLoadGame();
                 SceneManager.LoadScene(1);
                 break;
             case LadderStep.StepTypes.BossFight:

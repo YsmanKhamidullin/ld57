@@ -20,10 +20,12 @@ public class NPC : MonoBehaviour
         }
 
         _isInteracted = true;
+        Root.Instance.PlayerWill.Hide();
         Root.Instance.ServiceUi.HideGamePlay();
         await Root.Instance.DialogueSequenceWrapper.StartSequence(_dialogue, this);
         await UniTask.WaitForSeconds(0.15f);
         Root.Instance.ServiceUi.ShowGamePlay();
+        Root.Instance.PlayerWill.Show();
         OnInteractComplete?.Invoke();
     }
 

@@ -64,7 +64,7 @@ namespace Game.Core.VisualNovel
             _cancellationToken?.Cancel();
         }
 
-        private void HideAll()
+        public void HideAll()
         {
             foreach (var dialogue in _dialogues)
             {

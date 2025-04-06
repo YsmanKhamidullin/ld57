@@ -166,18 +166,16 @@ public class CardVisual : MonoBehaviour
     {
         if (scaleAnimations)
             transform.DOScale(scaleOnSelect, scaleTransition).SetEase(scaleEase);
-
-        canvas.overrideSorting = true;
     }
 
     private void EndDrag(Card card)
     {
-        canvas.overrideSorting = false;
         transform.DOScale(1, scaleTransition).SetEase(scaleEase);
     }
 
     private void PointerEnter(Card card)
     {
+        canvas.overrideSorting = true;
         if (scaleAnimations)
             transform.DOScale(scaleOnHover, scaleTransition).SetEase(scaleEase);
 
@@ -198,5 +196,6 @@ public class CardVisual : MonoBehaviour
 
     private void PointerDown(Card card)
     {
+        canvas.overrideSorting = true;
     }
 }
