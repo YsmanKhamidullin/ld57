@@ -24,7 +24,7 @@ public class ServiceCards : MonoBehaviour
         }
     }
 
-    private async UniTask UseCardByType(CardTypes type)
+    public async UniTask UseCardByType(CardTypes type)
     {
         var l = Root.Instance.ServiceLadder;
         Debug.Log($"Using: {type}");
@@ -39,8 +39,11 @@ public class ServiceCards : MonoBehaviour
                     await Root.Instance.Player.Move(ladderStep);
                     l.IncrementStep();
                     await TryInteractByCurrentStep(ladderStep);
-                    var n = Root.Instance.ServiceLadder.GetNextStep();
-                    await TryInteractByNextStep(n);
+                    if (Root.Instance.ServiceFight.InFight == false)
+                    {
+                        var n = Root.Instance.ServiceLadder.GetNextStep();
+                        await TryInteractByNextStep(n);
+                    }
                 }
                 else
                 {
@@ -62,6 +65,7 @@ public class ServiceCards : MonoBehaviour
 
                 break;
             case CardTypes.Dream:
+                await UseDreamCard();
                 break;
             case CardTypes.Struggle:
                 break;
@@ -81,7 +85,27 @@ public class ServiceCards : MonoBehaviour
         IsUsingCard = false;
     }
 
-    private async UniTask TryInteractByNextStep(LadderStep step)
+    private async UniTask UseDreamCard()
+    {
+        await TryHealIfHaveMind();
+    }
+
+    private async UniTask TryHealIfHaveMind()
+    {
+        bool isPositive = Mind.MindValue > 0;
+        if (isPositive)
+        {
+            Root.Instance.Player.CurrentWill++;
+            await Root.Instance.Mind.Decrement();
+        }
+        else if (Mind.MindValue < 0)
+        {
+            Root.Instance.Player.CurrentWill++;
+            await Root.Instance.Mind.Increment();
+        }
+    }
+
+    public async UniTask TryInteractByNextStep(LadderStep step)
     {
         switch (step.StepType)
         {

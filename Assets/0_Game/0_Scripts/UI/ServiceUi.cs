@@ -53,12 +53,16 @@ public class ServiceUi : MonoBehaviour
 
     public FightWindow ShowFightWindow()
     {
+        Root.Instance.ServiceLadder.DisableLadderVisual();
+        Root.Instance.BattleCardsContainer.gameObject.SetActive(true);
         _fightWindow.Show();
         return _fightWindow;
     }
 
     public void HideFightWindow()
     {
+        Root.Instance.ServiceLadder.EnableLadderVisual();
+        Root.Instance.BattleCardsContainer.gameObject.SetActive(false);
         _fightWindow.Hide();
     }
 

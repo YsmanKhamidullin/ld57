@@ -45,7 +45,7 @@ public abstract class Enemy : MonoBehaviour, IWill
 
     public Sprite EnemySprite;
 
-    private int _currentWill;
+    private int _currentWill = 1;
 
     [SerializeField]
     private int _maxWill;

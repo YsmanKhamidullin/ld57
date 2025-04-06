@@ -7,14 +7,12 @@ using UnityEngine.UI;
 
 public class FightWindow : BaseWindow
 {
-    public Image EnemyWillFillImage;
-    public Image PlayerWillFillImage;
+    public EnemyWill EnemyWill;
+    public EnemyVisual EnemyVisual;
     public PlayerHeart PlayerHeart;
     public BattleField BattleField;
     public Transform CardsContainer;
-
     public TextMeshProUGUI EnemyName;
-
     public Image EnemyImage;
 
     private ServiceFight _service;
@@ -37,13 +35,20 @@ public class FightWindow : BaseWindow
         _service = serviceFight;
         EnemyName.text = enemy.EnemyName;
         EnemyImage.sprite = enemy.EnemySprite;
-        UpdateWill();
+        EnemyWill.SetUp(enemy);
+        EnemyVisual.SetUp();
     }
+
+    public override void Hide()
+    {
+        base.Hide();
+        EnemyVisual.Hide();
+    }
+
 
     public void UpdateWill()
     {
-        EnemyWillFillImage.DOFillAmount(_enemy.CurrentWill / (float)_enemy.MaxWill, 0.15f).SetEase(Ease.OutSine);
-        PlayerWillFillImage.DOFillAmount(_player.CurrentWill / (float)_player.MaxWill, 0.15f).SetEase(Ease.OutSine);
+        EnemyWill.UpdateCurrent();
     }
 
     public async UniTask SetUpActionPhase()
@@ -59,7 +64,13 @@ public class FightWindow : BaseWindow
         _isBattleFieldShowed = false;
         await BattleField.transform.DOScale(Vector3.one, 0.25f).SetEase(Ease.InOutSine)
             .OnUpdate(
-                () => { PlayerHeart.SetPos(_heartBattleCell.transform.position); })
+                () =>
+                {
+                    if (_heartBattleCell != null)
+                    {
+                        PlayerHeart.SetPos(_heartBattleCell.transform.position);
+                    }
+                })
             .ToUniTask();
         _isBattleFieldShowed = true;
         CardsContainer.gameObject.SetActive(false);
@@ -73,7 +84,8 @@ public class FightWindow : BaseWindow
 
     public async UniTask TryMovePlayerTo(BattleCell battleCell)
     {
-        if (!Onboarding.isOnboardingFirstBattleStarted || Onboarding.IsInOnboarding || _isMovingPlayer || !_isBattleFieldShowed)
+        if (!Onboarding.isOnboardingFirstBattleStarted || Onboarding.IsInOnboarding || _isMovingPlayer ||
+            !_isBattleFieldShowed)
         {
             return;
         }
@@ -89,5 +101,21 @@ public class FightWindow : BaseWindow
         _heartBattleCell = battleCell;
         await PlayerHeart.MoveToCell(battleCell);
         _isMovingPlayer = false;
+    }
+
+    public async UniTask HandleEnemyDeath(Enemy enemy)
+    {
+        bool isWillZero = enemy.CurrentWill <= 0;
+        if (isWillZero)
+        {
+            await EnemyVisual.StartDialogue();
+        }
+
+        await AnimateVanishEnemy();
+    }
+
+    private async UniTask AnimateVanishEnemy()
+    {
+        await EnemyVisual.Vanish();
     }
 }

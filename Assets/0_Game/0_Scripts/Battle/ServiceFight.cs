@@ -7,11 +7,15 @@ public class ServiceFight : MonoBehaviour
     private Player _player;
     private Enemy _enemy;
     private FightWindow _fightWindow;
+    private LadderStep _currentLadderStep;
+    public bool InFight { get; set; }
 
     public async UniTask ForceStartFight(LadderStep step)
     {
+        InFight = true;
+        _currentLadderStep = step;
         _player = Root.Instance.Player;
-        _enemy = step.GetEnemyAndRemove();
+        _enemy = step.GetEnemy();
         Root.Instance.ServiceUi.HideGamePlay();
         await Root.Instance.ServiceUi.FadeIn(0.25f);
         _fightWindow = Root.Instance.ServiceUi.ShowFightWindow();
@@ -29,11 +33,23 @@ public class ServiceFight : MonoBehaviour
 
     private async UniTask FinishBattle()
     {
-        CheckWhoWin();
+        await HandleFinishBeforeExit();
         await Root.Instance.ServiceUi.FadeIn(0.25f);
         Root.Instance.ServiceUi.HideFightWindow();
         Root.Instance.ServiceUi.ShowGamePlay();
+        InFight = false;
         await Root.Instance.ServiceUi.FadeOut(0.15f);
+        await HandleFinishAfterExit();
+    }
+
+    private async UniTask HandleFinishBeforeExit()
+    {
+        bool isEnemyDead = _enemy.CurrentWill <= 0;
+        if (isEnemyDead)
+        {
+            _currentLadderStep.TryRemove(_enemy);
+            await _fightWindow.HandleEnemyDeath(_enemy);
+        }
     }
 
     private async UniTask PhaseBattle()
@@ -50,43 +66,46 @@ public class ServiceFight : MonoBehaviour
 
     public async UniTask UseTalk()
     {
-        await Root.Instance.Mind.IncrementTalk();
+        await Root.Instance.Mind.Decrement();
         _enemy.TakeDamage(_player.TalkDamage);
+
         _fightWindow.UpdateWill();
         await PhaseBattle();
     }
 
     public async UniTask UseListen()
     {
-        await Root.Instance.Mind.IncrementListen();
+        await Root.Instance.Mind.Increment();
         _enemy.TakeListenDamage();
         await PhaseBattle();
     }
 
     public async UniTask UseFlee()
     {
-        Debug.Log("Trying Flee");
+        await Root.Instance.ServiceUi.FadeIn(0.25f);
+        Root.Instance.ServiceUi.HideFightWindow();
+        Root.Instance.ServiceUi.ShowGamePlay();
+        InFight = false;
+        await Root.Instance.ServiceUi.FadeOut(0.15f);
+        await Root.Instance.ServiceCards.UseCardByType(CardTypes.Backward);
     }
 
-    private void CheckWhoWin()
+    private async UniTask HandleFinishAfterExit()
     {
         bool isPlayerDead = _player.CurrentWill <= 0;
         bool isEnemyDead = _enemy.CurrentWill <= 0;
-        if (isEnemyDead)
+        if (isPlayerDead)
         {
-            PlayerWin();
-            return;
+            await Root.Instance.ServiceCards.UseCardByType(CardTypes.Backward);
+            await Root.Instance.Mind.SetToZero();
+            Root.Instance.Player.WillToMax();
+            await UniTask.WaitForSeconds(0.2f);
         }
-
-        EnemyWin();
-    }
-
-    private void PlayerWin()
-    {
-    }
-
-    private void EnemyWin()
-    {
+        else if (isEnemyDead)
+        {
+            var n = Root.Instance.ServiceLadder.GetNextStep();
+            await Root.Instance.ServiceCards.TryInteractByNextStep(n);
+        }
     }
 
     public async UniTask MovePlayerTo(int index)
@@ -96,6 +115,6 @@ public class ServiceFight : MonoBehaviour
 
     public void TryMovePlayerTo(BattleCell battleCell)
     {
-        _fightWindow.TryMovePlayerTo(battleCell);
+        _ = _fightWindow.TryMovePlayerTo(battleCell);
     }
 }

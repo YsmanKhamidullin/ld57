@@ -24,6 +24,10 @@ PrefabInstance:
       propertyPath: attackColor.g
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7459794518738200734, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8018483288264124442, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -92,7 +96,7 @@ MonoBehaviour:
   EnemyName: Bully
   EnemySprite: {fileID: 21300000, guid: 73a2bec1b0444ee4ba9774c502ec5f5b, type: 3}
   _maxWill: 15
-  _betweenAttacksTime: 0.45
+  _betweenAttacksTime: 0.55
   _listenCountToMercy: 9
   <Damage>k__BackingField: 1
-  attacksCount: {x: 5, y: 10}
+  attacksCount: {x: 8, y: 10}

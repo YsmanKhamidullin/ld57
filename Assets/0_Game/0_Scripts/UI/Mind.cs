@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
@@ -17,20 +18,38 @@ public class Mind : MonoBehaviour
 
     public static int MindValue;
 
-    public async UniTask IncrementListen()
+
+    public async UniTask SetToZero()
     {
         await _canvasGroup.Fade(1f, 0.4f);
-        MindValue++;
+        MindValue = 0;
+        await RotateToCurrent();
+        await _canvasGroup.Fade(0f, 0.2f);
+        await UniTask.WaitForSeconds(0.15f);
+    }
+
+    public async UniTask Increment()
+    {
+        await _canvasGroup.Fade(1f, 0.4f);
+        MindValue = Mathf.Clamp(MindValue + 1, -5, 5);
         await RotateToCurrent();
         await _canvasGroup.Fade(0f, 0.2f);
         await UniTask.WaitForSeconds(0.15f);
     }
 
     [Button]
-    public async UniTask IncrementTalk()
+    public async UniTask Decrement()
     {
         await _canvasGroup.Fade(1f, 0.4f);
-        MindValue--;
+        MindValue = Mathf.Clamp(MindValue - 1, -5, 5);
+        await RotateToCurrent();
+        await _canvasGroup.Fade(0f, 0.2f);
+        await UniTask.WaitForSeconds(0.15f);
+    }
+
+    public async UniTask UpdateByCurrentValue()
+    {
+        await _canvasGroup.Fade(1f, 0.4f);
         await RotateToCurrent();
         await _canvasGroup.Fade(0f, 0.2f);
         await UniTask.WaitForSeconds(0.15f);
@@ -38,7 +57,7 @@ public class Mind : MonoBehaviour
 
     private async UniTask RotateToCurrent()
     {
-        var targetZRot = MindValue * -10f;
+        var targetZRot = MindValue * -15f;
         Vector3 newRot = new Vector3(0, 0, targetZRot);
         await arrowImage.transform.DORotate(newRot, 1f, RotateMode.Fast).SetEase(Ease.InOutCirc).ToUniTask();
     }

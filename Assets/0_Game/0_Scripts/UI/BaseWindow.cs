@@ -15,7 +15,7 @@ public class BaseWindow : MonoBehaviour
         }
     }
 
-    public void Show()
+    public virtual void Show()
     {
         gameObject.SetActive(true);
         CanvasGroup.alpha = 1f;
@@ -23,7 +23,7 @@ public class BaseWindow : MonoBehaviour
         CanvasGroup.blocksRaycasts = true;
     }
 
-    public void Hide()
+    public virtual void Hide()
     {
         CanvasGroup.alpha = 0f;
         CanvasGroup.interactable = false;

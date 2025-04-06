@@ -12,7 +12,10 @@ public class ServiceLadder : MonoBehaviour
     private void OnValidate()
     {
 #if UNITY_EDITOR
-        UpdateStepsList();
+        if (!Application.isPlaying)
+        {
+            UpdateStepsList();
+        }
 #endif
     }
 
@@ -21,6 +24,17 @@ public class ServiceLadder : MonoBehaviour
     {
         Steps = GetComponentsInChildren<LadderStep>().ToList();
         Steps.Sort((a, b) => a.transform.position.z.CompareTo(b.transform.position.z));
+    }
+
+
+    public void EnableLadderVisual()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void DisableLadderVisual()
+    {
+        gameObject.SetActive(false);
     }
 
     public bool IsNextStepAvailable()

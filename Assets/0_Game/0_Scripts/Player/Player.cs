@@ -42,4 +42,9 @@ public class Player : MonoBehaviour, IWill
     {
         CurrentWill -= dmg;
     }
+
+    public void WillToMax()
+    {
+        CurrentWill = MaxWill;
+    }
 }

@@ -22,10 +22,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5677598420731701867, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
       propertyPath: attackColor.b
-      value: 0.32526445
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5677598420731701867, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
       propertyPath: attackColor.g
+      value: 0.64311695
+      objectReference: {fileID: 0}
+    - target: {fileID: 5677598420731701867, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
+      propertyPath: attackColor.r
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5677598420731701867, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
@@ -39,6 +43,18 @@ PrefabInstance:
     - target: {fileID: 5677598420731701867, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
       propertyPath: betweenHighlightsDelay
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7459794518738200734, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7459794518738200734, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.6431373
+      objectReference: {fileID: 0}
+    - target: {fileID: 7459794518738200734, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8018483288264124442, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
       propertyPath: m_LocalPosition.x

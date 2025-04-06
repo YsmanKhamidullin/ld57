@@ -15,14 +15,12 @@ public class EnemyAttack : MonoBehaviour
     {
         public string patternName;
         public List<Vector2Int> targetPositions;
+        public bool isBlockedForSelection;
     }
 
     [Header("Attack Settings")]
     [SerializeField]
     private float highlightDuration = 0.5f;
-
-    [SerializeField]
-    private float betweenHighlightsDelay = 0.2f;
 
     [SerializeField]
     private Color attackColor = Color.red;
@@ -34,15 +32,9 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField]
     private float projectileSpeed = 5f;
 
-    [SerializeField]
-    private float hitEffectDuration = 0.3f;
-
     private Color[,] originalColors;
     private BattleCell[,] gridBattleCells;
-    private List<AttackPattern> _attackPatterns;
     private List<BattleCell> _battleCells;
-    private Projectile _spawnedProjectile;
-    private AttackPattern _selectedAttackPattern;
     private Enemy _enemy;
 
     private void InitializeGridReferences()
@@ -67,7 +59,6 @@ public class EnemyAttack : MonoBehaviour
     public async UniTask Attack(List<AttackPattern> attackPatterns, List<BattleCell> battleCells, Enemy enemy)
     {
         _enemy = enemy;
-        _attackPatterns = attackPatterns;
         _battleCells = battleCells;
         InitializeGridReferences();
 
@@ -76,31 +67,44 @@ public class EnemyAttack : MonoBehaviour
             throw new Exception("No attack patterns defined!");
         }
 
-        _selectedAttackPattern = attackPatterns[Random.Range(0, attackPatterns.Count)];
-        Debug.Log($"Attacking with pattern: {_selectedAttackPattern.patternName}");
+        var availableAttackPatterns = attackPatterns.Where(ap => !ap.isBlockedForSelection).ToList();
+        if (availableAttackPatterns.Count == 0)
+        {
+            Debug.Log("No available attack patterns found. Resetting selection flags.");
+            foreach (var a in attackPatterns)
+            {
+                a.isBlockedForSelection = false;
+            }
 
-        await ExecuteAttackPattern(_selectedAttackPattern);
+            availableAttackPatterns = new List<AttackPattern>(attackPatterns);
+        }
+
+        var selectedAttackPattern = availableAttackPatterns[Random.Range(0, availableAttackPatterns.Count)];
+
+        selectedAttackPattern.isBlockedForSelection = true;
+        Debug.Log($"Attacking with pattern: {selectedAttackPattern.patternName}");
+
+        await ExecuteAttackPattern(selectedAttackPattern);
     }
+
 
     private async UniTask ExecuteAttackPattern(AttackPattern pattern)
     {
         Vector3 startPosition = transform.position;
-        _spawnedProjectile = CreateProjectile(startPosition);
-        //pos
+        var spawnedProjectile = CreateProjectile(startPosition);
         Vector3 firstCell = GetCellWorldPosition(pattern.targetPositions[0].x, pattern.targetPositions[0].y);
         Vector3 lastCell = GetCellWorldPosition(pattern.targetPositions.Last().x, pattern.targetPositions.Last().y);
         Vector3 flightDirection = (lastCell - firstCell).normalized;
         float spawnOffset = 240;
         Vector3 spawnPosition = firstCell - (flightDirection * spawnOffset);
-        _spawnedProjectile.transform.position = spawnPosition;
+        spawnedProjectile.transform.position = spawnPosition;
 
-        //rot
-        Vector3 direction = (lastCell - _spawnedProjectile.transform.position);
+        Vector3 direction = (lastCell - spawnedProjectile.transform.position);
         direction.z = 0;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-        _spawnedProjectile.transform.rotation = Quaternion.Euler(0, 0, angle);
-
-        _spawnedProjectile.transform.DOScale(Vector3.one, 0.2f).From(Vector3.zero).SetEase(Ease.InQuad);
+        spawnedProjectile.transform.rotation = Quaternion.Euler(0, 0, angle);
+        await spawnedProjectile.transform.DOScale(Vector3.one, 0.15f).From(Vector3.zero).SetEase(Ease.InQuad)
+            .ToUniTask();
         await HighlightAllCells(pattern.targetPositions);
         float reactTime = 0.2f;
         await UniTask.WaitForSeconds(reactTime);
@@ -110,9 +114,9 @@ public class EnemyAttack : MonoBehaviour
             await Root.Instance.ServiceFight.MovePlayerTo(5);
         }
 
-        await AnimateProjectileThroughCells(_spawnedProjectile, pattern.targetPositions);
+        await AnimateProjectileThroughCells(spawnedProjectile, pattern.targetPositions, pattern);
 
-        Destroy(_spawnedProjectile.gameObject, 1f);
+        Destroy(spawnedProjectile.gameObject, 1f);
     }
 
     private Projectile CreateProjectile(Vector3 position)
@@ -138,7 +142,8 @@ public class EnemyAttack : MonoBehaviour
         await UniTask.WaitForSeconds(0.15f * targetPositions.Count);
     }
 
-    private async UniTask AnimateProjectileThroughCells(Projectile projectile, List<Vector2Int> targetPositions)
+    private async UniTask AnimateProjectileThroughCells(Projectile projectile, List<Vector2Int> targetPositions,
+        AttackPattern pattern)
     {
         if (targetPositions == null || targetPositions.Count == 0) return;
 
@@ -149,17 +154,17 @@ public class EnemyAttack : MonoBehaviour
         await projectile.transform
             .DOMove(pos + direction * 250f, 1f / projectileSpeed)
             .SetEase(Ease.OutQuad)
-            .OnUpdate(TryDealDamageToPlayer)
+            .OnUpdate(() => TryDealDamageToPlayer(projectile, pattern))
             .ToUniTask();
         await projectile.transform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.OutQuad).ToUniTask();
     }
 
-    private void TryDealDamageToPlayer()
+    private void TryDealDamageToPlayer(Projectile projectile, AttackPattern pattern)
     {
-        if (!_spawnedProjectile.IsTriedDealDamage && _spawnedProjectile.IsNearHeart())
+        if (!projectile.IsTriedDealDamage && projectile.IsNearHeart())
         {
-            _spawnedProjectile.IsTriedDealDamage = true;
-            Root.Instance.PlayerHeart.TryDealDamage(GetBattleCells(_selectedAttackPattern), _enemy);
+            projectile.IsTriedDealDamage = true;
+            Root.Instance.PlayerHeart.TryDealDamage(GetBattleCells(pattern), _enemy);
         }
     }
 

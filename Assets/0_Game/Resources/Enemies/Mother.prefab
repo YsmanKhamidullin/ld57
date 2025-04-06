@@ -40,6 +40,10 @@ PrefabInstance:
       propertyPath: betweenHighlightsDelay
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 7459794518738200734, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.3254902
+      objectReference: {fileID: 0}
     - target: {fileID: 8018483288264124442, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

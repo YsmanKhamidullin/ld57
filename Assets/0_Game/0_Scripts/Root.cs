@@ -8,6 +8,9 @@ public class Root : MonoBehaviour
 
     [field: SerializeField]
     public ServiceLadder ServiceLadder { get; private set; }
+
+    [field: SerializeField]
+    public BattleCardsContainer BattleCardsContainer { get; private set; }
     [field: SerializeField]
     public DialogueSequenceWrapper DialogueSequenceWrapper { get; private set; }
 
@@ -22,6 +25,8 @@ public class Root : MonoBehaviour
 
     [field: SerializeField]
     public Player Player { get; private set; }
+    [field: SerializeField]
+    public EnemyVisual EnemyVisual { get; private set; }
 
     [field: SerializeField]
     public PlayerHeart PlayerHeart { get; private set; }
