@@ -28,6 +28,8 @@ public class ServiceUi : MonoBehaviour
 
     [SerializeField]
     public FirstEndingWindow FirstEndingWindow;
+    [SerializeField]
+    public TrueEnding TrueEnding;
 
     public void ShowGameStart()
     {
@@ -83,9 +85,15 @@ public class ServiceUi : MonoBehaviour
         Fader.raycastTarget = false;
     }
 
-    public async UniTask ShowFirstEnding()
+    public FirstEndingWindow ShowFirstEnding()
     {
         FirstEndingWindow.Show();
-        await FirstEndingWindow.Animate();
+        return FirstEndingWindow;
+    }
+
+    public void ShowTrueEnding()
+    {
+        TrueEnding.Show();
+        _ = TrueEnding.Animate();
     }
 }

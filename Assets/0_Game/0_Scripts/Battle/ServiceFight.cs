@@ -19,10 +19,13 @@ public class ServiceFight : MonoBehaviour
         _enemy = step.GetEnemy();
         Root.Instance.ServiceUi.HideGamePlay();
         Root.Instance.ServiceAudio.PlayBattleStart();
+        Root.Instance.ServiceAudio.PauseBackgroundMusic();
+
         await Root.Instance.ServiceUi.FadeIn(0.25f);
         _fightWindow = Root.Instance.ServiceUi.ShowFightWindow();
         _fightWindow.SetUp(this, _player, _enemy);
         await Root.Instance.ServiceUi.FadeOut(0.15f);
+        await Onboarding.TryBattleSecondTutorial();
         _ = StartBattle();
     }
 
@@ -35,23 +38,33 @@ public class ServiceFight : MonoBehaviour
 
     private async UniTask FinishBattle()
     {
+        Root.Instance.ServiceCards.IsBlocked = true;
         await HandleFinishBeforeExit();
         Root.Instance.ServiceAudio.PlayBattleEnd();
-        await Root.Instance.ServiceUi.FadeIn(0.25f);
         if (CheckWinGame())
         {
             Main.SetFirstEndingAchieved();
-            await Root.Instance.ServiceUi.ShowFirstEnding();
+            var f = Root.Instance.ServiceUi.ShowFirstEnding();
+            await f.Animate();
             SceneManager.LoadScene(0);
             return;
         }
 
+        bool isPlayerDead = _player.CurrentWill <= 0;
+        if (isPlayerDead)
+        {
+            Root.Instance.ServiceAudio.PlayDeath();
+        }
+
+        Root.Instance.BattleCardsContainer.gameObject.SetActive(false);
+        await Root.Instance.ServiceUi.FadeIn(0.25f);
         Root.Instance.ServiceUi.HideFightWindow();
         Root.Instance.ServiceUi.ShowGamePlay();
         InFight = false;
         await Root.Instance.ServiceUi.FadeOut(0.15f);
         await HandleFinishAfterExit();
         await OnBattleEnd();
+        Root.Instance.ServiceCards.IsBlocked = false;
     }
 
     public async UniTask UseFlee()
@@ -64,9 +77,10 @@ public class ServiceFight : MonoBehaviour
         await Root.Instance.ServiceCards.UseCardByType(CardTypes.Backward);
         await OnBattleEnd();
     }
-    
+
     private async UniTask OnBattleEnd()
     {
+        Root.Instance.ServiceAudio.UnPauseBackgroundMusic();
         await Root.Instance.PlayerWill.TryUnblockDreamCard();
     }
 
@@ -122,8 +136,8 @@ public class ServiceFight : MonoBehaviour
 
     private async UniTask HandleFinishAfterExit()
     {
-        bool isPlayerDead = _player.CurrentWill <= 0;
         bool isEnemyDead = _enemy.CurrentWill <= 0;
+        bool isPlayerDead = _player.CurrentWill <= 0;
         if (isPlayerDead)
         {
             await Root.Instance.ServiceCards.UseCardByType(CardTypes.Backward);

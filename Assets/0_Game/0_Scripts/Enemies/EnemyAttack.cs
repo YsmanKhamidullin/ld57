@@ -32,6 +32,9 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField]
     private float projectileSpeed = 5f;
 
+    [SerializeField]
+    private bool isUseBlockRepeat = true;
+
     private Color[,] originalColors;
     private BattleCell[,] gridBattleCells;
     private List<BattleCell> _battleCells;
@@ -67,21 +70,30 @@ public class EnemyAttack : MonoBehaviour
             throw new Exception("No attack patterns defined!");
         }
 
-        // var availableAttackPatterns = attackPatterns.Where(ap => !ap.isBlockedForSelection).ToList();
-        // if (availableAttackPatterns.Count == 0)
-        // {
-            // Debug.Log("No available attack patterns found. Resetting selection flags.");
-            // foreach (var a in attackPatterns)
-            // {
-                // a.isBlockedForSelection = false;
-            // }
+        AttackPattern selectedAttackPattern;
+        if (isUseBlockRepeat)
+        {
+            var availableAttackPatterns = attackPatterns.Where(ap => !ap.isBlockedForSelection).ToList();
+            if (availableAttackPatterns.Count == 0)
+            {
+                Debug.Log("No available attack patterns found. Resetting selection flags.");
+                foreach (var a in attackPatterns)
+                {
+                    a.isBlockedForSelection = false;
+                }
 
-            // availableAttackPatterns = new List<AttackPattern>(attackPatterns);
-        // }
+                availableAttackPatterns = new List<AttackPattern>(attackPatterns);
+            }
 
-        // var selectedAttackPattern = availableAttackPatterns[Random.Range(0, availableAttackPatterns.Count)];
-        // selectedAttackPattern.isBlockedForSelection = true;
-        var selectedAttackPattern = attackPatterns.GetRandom();
+            selectedAttackPattern = availableAttackPatterns[Random.Range(0, availableAttackPatterns.Count)];
+            selectedAttackPattern.isBlockedForSelection = true;
+        }
+
+        else
+        {
+            selectedAttackPattern = attackPatterns.GetRandom();
+        }
+
         Debug.Log($"Attacking with pattern: {selectedAttackPattern.patternName}");
 
         await ExecuteAttackPattern(selectedAttackPattern);
@@ -149,7 +161,8 @@ public class EnemyAttack : MonoBehaviour
         var cellPosition = targetPositions.Last();
         var pos = GetCellWorldPosition(cellPosition.x, cellPosition.y);
         Vector3 direction = (pos - projectile.transform.position).normalized;
-        await UniTask.WaitForSeconds(0.1f);
+
+        Root.Instance.ServiceAudio.PlayEnemyAttack();
         await projectile.transform
             .DOMove(pos + direction * 250f, 1f / projectileSpeed)
             .SetEase(Ease.OutQuad)

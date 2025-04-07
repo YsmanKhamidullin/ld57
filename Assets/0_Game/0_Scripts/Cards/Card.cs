@@ -151,7 +151,9 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     private bool CheckAvailableInput(PointerEventData eventData)
     {
         var notUsingCard = Root.Instance.ServiceCards.IsUsingCard == false;
-        return eventData.button == PointerEventData.InputButton.Left && notUsingCard && !CardBlocker.IsBlocked;
+        bool isBlocked = Root.Instance.ServiceCards.IsBlocked;
+        return eventData.button == PointerEventData.InputButton.Left && notUsingCard && !CardBlocker.IsBlocked &&
+               !isBlocked;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

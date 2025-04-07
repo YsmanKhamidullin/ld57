@@ -13,6 +13,7 @@ public class ButtonDialogue : Dialogue
 
     public override async UniTask<string> Show()
     {
+     
         UpdateAll();
         gameObject.SetActive(true);
         foreach (var b in _buttons)

@@ -85,7 +85,7 @@ public class FightWindow : BaseWindow
 
     public async UniTask TryMovePlayerTo(BattleCell battleCell)
     {
-        if (!Onboarding.isOnboardingFirstBattleStarted || Onboarding.IsInOnboarding || _isMovingPlayer ||
+        if (!Onboarding.IsOnboardingFirstBattleStarted || Onboarding.IsInOnboarding || _isMovingPlayer ||
             !_isBattleFieldShowed)
         {
             return;

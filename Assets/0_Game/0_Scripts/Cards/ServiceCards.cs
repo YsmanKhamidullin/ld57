@@ -14,6 +14,7 @@ public class ServiceCards : MonoBehaviour
     public Card FleeCard;
     
     public bool IsUsingCard;
+    public bool IsBlocked { get; set; }
 
     public void TryUseCard(Card card)
     {
@@ -34,6 +35,7 @@ public class ServiceCards : MonoBehaviour
 
     public async UniTask UseCardByType(CardTypes type)
     {
+        Root.Instance.ServiceAudio.PlayStep();
         var l = Root.Instance.ServiceLadder;
         Debug.Log($"Using: {type}");
         switch (type)

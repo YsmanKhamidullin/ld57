@@ -796,7 +796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4445451969200472578, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: Text
-      value: You've just come to <i>light</i>? xD
+      value: It turns out that you've just come to <i>light</i>, hasn't it? xD
       objectReference: {fileID: 0}
     - target: {fileID: 4445451969200472578, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: _nameColor.b
@@ -872,7 +872,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7356857414736660219, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: m_text
-      value: You've just come to <i>light</i>? xD
+      value: It turns out that you've just come to <i>light</i>, hasn't it? xD
       objectReference: {fileID: 0}
     - target: {fileID: 7356857414736660219, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: m_fontColor.b
@@ -1109,7 +1109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4445451969200472578, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: Text
-      value: "But don\u2019t be afraid, I\u2019ll guide you."
+      value: "Don\u2019t worry, I\u2019ll guide you."
       objectReference: {fileID: 0}
     - target: {fileID: 4445451969200472578, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: _nameColor.b
@@ -1185,7 +1185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7356857414736660219, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: m_text
-      value: "But don\u2019t be afraid, I\u2019ll guide you."
+      value: "Don\u2019t worry, I\u2019ll guide you."
       objectReference: {fileID: 0}
     - target: {fileID: 7356857414736660219, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: m_fontColor.b
@@ -1735,7 +1735,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4445451969200472578, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: Text
-      value: Whatever...
+      value: Anyway...
       objectReference: {fileID: 0}
     - target: {fileID: 4445451969200472578, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: _nameColor.b
@@ -1811,7 +1811,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7356857414736660219, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: m_text
-      value: Whatever...
+      value: Anyway...
       objectReference: {fileID: 0}
     - target: {fileID: 7356857414736660219, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: m_fontColor.b
@@ -3545,7 +3545,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4445451969200472578, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: Text
-      value: Hi, I'm glad to meet you!
+      value: Nice to meet you!
       objectReference: {fileID: 0}
     - target: {fileID: 4445451969200472578, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: _nameColor.b
@@ -3621,7 +3621,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7356857414736660219, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: m_text
-      value: Hi, I'm glad to meet you!
+      value: Nice to meet you!
       objectReference: {fileID: 0}
     - target: {fileID: 7356857414736660219, guid: abf6d2bf1c43fd142ad76ed516543c56, type: 3}
       propertyPath: m_fontColor.b

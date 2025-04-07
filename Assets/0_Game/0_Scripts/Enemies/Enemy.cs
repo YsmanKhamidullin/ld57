@@ -101,6 +101,7 @@ public abstract class Enemy : MonoBehaviour, IWill
 
     public void TakeDamage(int dmg)
     {
+        Root.Instance.ServiceAudio.PlayEnemyGotDamage();
         CurrentWill -= dmg;
     }
 

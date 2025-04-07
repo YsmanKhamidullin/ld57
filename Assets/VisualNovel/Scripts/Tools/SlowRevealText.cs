@@ -42,6 +42,7 @@ namespace Game.Core.VisualNovel
             {
                 _textLabel.maxVisibleCharacters++;
                 IsWriting = _textLabel.maxVisibleCharacters <= totalVisibleCharacters;
+                Root.Instance.ServiceAudio.PlayKey();
                 await UniTask.WaitForSeconds(Timings.Get(_betweenCharactersTime));
             }
 

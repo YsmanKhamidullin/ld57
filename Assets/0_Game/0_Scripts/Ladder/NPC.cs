@@ -9,6 +9,9 @@ public class NPC : MonoBehaviour
     
     [SerializeField]
     private DialogueSequence _dialogue;
+    
+    [SerializeField]
+    private bool _isTrueEnd;
 
     private bool _isInteracted;
 
@@ -24,6 +27,11 @@ public class NPC : MonoBehaviour
         Root.Instance.ServiceUi.HideGamePlay();
         await Root.Instance.DialogueSequenceWrapper.StartSequence(_dialogue, this);
         await UniTask.WaitForSeconds(0.15f);
+        if (_isTrueEnd)
+        {
+            Root.Instance.ServiceUi.ShowTrueEnding();
+            return;
+        }
         Root.Instance.ServiceUi.ShowGamePlay();
         Root.Instance.PlayerWill.Show();
         OnInteractComplete?.Invoke();

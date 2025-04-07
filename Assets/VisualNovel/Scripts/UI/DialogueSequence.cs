@@ -4,11 +4,15 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.Core.VisualNovel
 {
     public class DialogueSequence : MonoBehaviour
     {
+        [SerializeField]
+        private Button _skipButton;
+
         [IntSlider(0, 15)]
         [SerializeField]
         private int _currentIndex;
@@ -27,9 +31,18 @@ namespace Game.Core.VisualNovel
 
         private CancellationTokenSource _cancellationToken;
 
+        private void Awake()
+        {
+            _skipButton.onClick.AddListener(SkipSequence);
+        }
+
         public async UniTask Play()
         {
             HideAll();
+            _skipButton.gameObject.SetActive(GameSettings.IsGotFirstEnding);
+#if UNITY_EDITOR
+            _skipButton.gameObject.SetActive(true);
+#endif
             _currentIndex = 0;
 
             _cancellationToken = new CancellationTokenSource();
@@ -66,6 +79,7 @@ namespace Game.Core.VisualNovel
 
         public void HideAll()
         {
+            _skipButton.gameObject.SetActive(false);
             foreach (var dialogue in _dialogues)
             {
                 dialogue.Hide();

@@ -36,6 +36,7 @@ public static class GameResources
     public static class VisualNovel
     {
         public static DialogueSequence Battle_Tutor_01 => Resources.Load<DialogueSequence>("VisualNovel/Battle_Tutor_01");
+        public static DialogueSequence Battle_Tutor_02 => Resources.Load<DialogueSequence>("VisualNovel/Battle_Tutor_02");
         public static DialogueSequence Father_Win => Resources.Load<DialogueSequence>("VisualNovel/Father_Win");
         public static DialogueSequence Intro_01 => Resources.Load<DialogueSequence>("VisualNovel/Intro_01");
         public static DialogueSequence Mother_Win => Resources.Load<DialogueSequence>("VisualNovel/Mother_Win");

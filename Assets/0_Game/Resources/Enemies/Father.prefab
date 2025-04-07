@@ -37,6 +37,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5677598420731701867, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
+      propertyPath: isUseBlockRepeat
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5677598420731701867, guid: d28d2c1954eafc049a634478d8d9f9c7, type: 3}
       propertyPath: highlightDuration
       value: 0.5
       objectReference: {fileID: 0}
@@ -126,7 +130,7 @@ MonoBehaviour:
   _beforeAttackText:
   - ...
   - ...
-  - How much longer will you keep crying?
+  - Stop crying!
   - "You can\u2019t run away forever."
   - You have to become stronger.
   _noWillText:

@@ -51,6 +51,7 @@ public class PlayerHeart : MonoBehaviour
 
     private async UniTask ReactToDamage()
     {
+        Root.Instance.ServiceAudio.PlayGotDamage();
         await _scaleRoot.DOPunchScale(Vector3.one * 0.7f, 0.2f).ToUniTask();
         await UniTask.WaitForSeconds(0.1f);
         _isImmuneToDamage = false;
